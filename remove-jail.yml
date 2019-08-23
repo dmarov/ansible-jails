@@ -1,0 +1,12 @@
+---
+
+- name: removes jail
+  hosts: all
+  remote_user: user
+  become: yes
+  become_method: sudo
+  tasks:
+    - shell: "chflags -R noschg {{ JAILS_BASE }}/{{ JAIL_NAME }} && rm -rdf {{ JAILS_BASE }}/{{ JAIL_NAME }}"
+      args:
+        executable: /usr/local/bin/zsh
+        removes: "{{ JAILS_BASE }}/{{ JAIL_NAME }}"
