@@ -1,7 +1,7 @@
 ---
 
 - name: install new jail
-  hosts: all
+  hosts: jail-hosts
   remote_user: user
   become: yes
   become_method: sudo
