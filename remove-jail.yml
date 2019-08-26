@@ -6,6 +6,8 @@
   become: yes
   become_method: sudo
   tasks:
+    - name: stop jail
+      shell: "jail -r {{ JAIL_NAME }}"
     - name: remove jail dir
       shell: "chflags -R noschg {{ JAILS_BASE }}/{{ JAIL_NAME }} && rm -rdf {{ JAILS_BASE }}/{{ JAIL_NAME }}"
       args:

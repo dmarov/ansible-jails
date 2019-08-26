@@ -6,3 +6,4 @@ ansible_ssh_private_key_file: ~/.ssh/admin_rsa
 REPOSITORY_PATH: http://artifactory.websm.io/artifactory/generic-local/jails/base-jail_190819.txz
 JAILS_BASE: /usr/jail
 JAIL_CONF_PATH: /etc/jail.conf
+JAIL_ADMIN_SSH_KEY_FILE: ~/.ssh/jail_admin_rsa.pub
