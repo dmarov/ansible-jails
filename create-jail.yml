@@ -5,13 +5,14 @@
   remote_user: user
   become: yes
   become_method: sudo
-  vars:
-    - HOSTNAME: hostname.stdout
   tasks:
     - name: Check out hostname
       shell: hostname
       register: hostname
       changed_when: false
+    - set_fact:
+        EPAIR_NUM: "{{ JAIL_NAME | regex_search('0*(\\d+)$', '\\1') | first }}"
+        HOSTNAME: "{{ hostname.stdout }}"
     - name: Create and extract jail dir
       shell: "mkdir -p {{ JAILS_BASE }}/{{ JAIL_NAME }} &&
         wget -O - -o /dev/null {{ REPOSITORY_PATH }} |
@@ -19,8 +20,6 @@
       args:
         warn: false
         creates: "{{ JAILS_BASE }}/{{ JAIL_NAME }}"
-    - set_fact:
-        EPAIR_NUM: "{{ JAIL_NAME | regex_search('0*(\\d+)$', '\\1') | first }}"
     - blockinfile:
         path: "{{ JAIL_CONF_PATH }}"
         block: "{% include './assets/jail.conf.j2' %}"
