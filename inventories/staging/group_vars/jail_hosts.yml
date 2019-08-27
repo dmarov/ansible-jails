@@ -1,5 +1,6 @@
 ---
 
+ansible_connection: local
 REPOSITORY_PATH: http://artifactory.websm.io/artifactory/generic-local/jails/base-jail_190819.txz
 JAILS_BASE: /usr/jail
 JAIL_CONF_PATH: /etc/jail.conf

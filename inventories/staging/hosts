@@ -1,5 +1,5 @@
 [jail_hosts]
-127.0.0.1 ansible_connection=local
+127.0.0.1
 
 [secure_jails]
 dell-01-j003
