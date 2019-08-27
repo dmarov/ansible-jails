@@ -2,7 +2,7 @@
     host.hostname = "{{ HOSTNAME }}-${name}";
     vnet=new;
     vnet.interface=epair{{ EPAIR_NUM }}b;
-    path ="/usr/jail/${name}";
+    path ="{{ JAILS_BASE }}/${name}";
     mount.devfs;
     allow.raw_sockets;
     devfs_ruleset=4;

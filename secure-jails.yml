@@ -1,25 +1,5 @@
 ---
 
-- name: secure jail
+- name: secure jails
   hosts: insecure_jails
   tasks:
-    - name: install sudo
-      package:
-        name: sudo
-        state: present
-    - name: create unprivileged user
-      user:
-        name: user
-        comment: User
-        shell: /bin/sh
-        state: present
-    - name: "allow no password sudo for user"
-      lineinfile:
-        path: "/usr/local/etc/sudoers"
-        line: "user ALL=(ALL) NOPASSWD: ALL"
-        state: present
-    - name: disable insecure ssh
-      blockinfile:
-        path: "{{ JAILS_BASE }}/{{ JAIL_NAME }}/etc/ssh/sshd_config"
-        marker: "# {mark} ANSIBLE MANAGED BLOCK FOR INSECURE SSH"
-        state: absent
