@@ -18,8 +18,17 @@
         path: "/usr/local/etc/sudoers"
         line: "user ALL=(ALL) NOPASSWD: ALL"
         state: present
+    - name: Append public key to user's authorized_keys
+      authorized_key:
+        user: user
+        state: present
+        key: " {{ lookup('file', JAIL_ADMIN_SSH_PUBKEY_FILE) }}"
     - name: disable insecure ssh
       blockinfile:
-        path: "{{ JAILS_BASE }}/{{ JAIL_NAME }}/etc/ssh/sshd_config"
+        path: "/etc/ssh/sshd_config"
         marker: "# {mark} ANSIBLE MANAGED BLOCK FOR INSECURE SSH"
         state: absent
+    - name: restart ssh
+      service:
+        name: sshd
+        state: reloaded

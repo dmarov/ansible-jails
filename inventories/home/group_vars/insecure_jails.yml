@@ -1,3 +1,4 @@
 ---
 
 ansible_user: root
+JAIL_ADMIN_SSH_PUBKEY_FILE: "~/.ssh/admin_rsa.pub"
