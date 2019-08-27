@@ -1,8 +1,7 @@
 [jail_hosts]
 127.0.0.1
 
-[secure_jails]
+[jails]
 mdpc-j001.local
+mdpc-j004.local
 
-[insecure_jails]
-mdpc-j001.local

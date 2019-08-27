@@ -1,0 +1,10 @@
+---
+
+- name: secure jail
+  hosts: jails
+  become: yes
+  tasks:
+    - name: install zsh
+      package:
+        name: zsh
+        state: present

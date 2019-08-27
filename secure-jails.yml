@@ -1,7 +1,10 @@
 ---
 
 - name: secure jail
-  hosts: insecure_jails
+  hosts: jails
+  vars:
+    ansible_connection: ssh
+    ansible_user: root
   tasks:
     - name: install sudo
       package:
