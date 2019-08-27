@@ -2,7 +2,6 @@
 
 - name: secure jail
   hosts: insecure_jails
-  remote_user: root
   tasks:
     - name: install sudo
       package:

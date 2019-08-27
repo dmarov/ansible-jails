@@ -2,7 +2,6 @@
 
 - name: install new jail
   hosts: jail_hosts
-  remote_user: user
   become: yes
   become_method: sudo
   tasks:
