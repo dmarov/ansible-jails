@@ -7,8 +7,6 @@
   pre_tasks:
     - assert:
         that: JAIL_NAME is match("^j\d{3}$")
-  # roles:
-  #   - jail_hosts
   tasks:
     - set_fact:
         JAIL_DIR: "{{ JAILS_DIR }}/{{ JAIL_NAME }}"
@@ -23,7 +21,7 @@
     - name: ensure jail config entry present
       blockinfile:
         path: "{{ JAIL_CONF_PATH }}"
-        block: "{% include 'roles/jail_hosts/templates/jail.conf.j2' %}"
+        block: "{% include 'templates/jail.conf.j2' %}"
         marker: "# {mark} ANSIBLE BLOCK FOR {{ JAIL_DIR }}"
     - name: configure DHCP
       lineinfile:
