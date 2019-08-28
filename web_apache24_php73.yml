@@ -1,7 +1,7 @@
 ---
 
 - name: install base packets
-  hosts: web-apache24-php73
+  hosts: web_apache24_php73
   roles:
     - php73
-    - apache24-php
+    - apache24-php73

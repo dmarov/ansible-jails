@@ -6,9 +6,9 @@ dell-01-j003
 dell-01-j004
 dell-01-j005
 
-[web-apache24-php73]
+[web_apache24_php73]
 dell-01-j003
 dell-01-j004
 
-[web-nginx-php73]
+[web_nginx_php73]
 dell-01-j005
