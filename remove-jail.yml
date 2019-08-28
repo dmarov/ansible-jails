@@ -5,14 +5,16 @@
   become: yes
   become_method: sudo
   tasks:
+    - set_fact:
+        JAIL_DIR: "{{ JAILS_DIR }}/{{ JAIL_NAME }}"
     - name: stop jail
       shell: "jail -r {{ JAIL_NAME }} || true"
     - name: remove jail dir
-      shell: "chflags -R noschg {{ JAILS_BASE }}/{{ JAIL_NAME }} && rm -rdf {{ JAILS_BASE }}/{{ JAIL_NAME }}"
+      shell: "chflags -R noschg {{ JAIL_DIR }} && rm -rdf {{ JAIL_DIR }}"
       args:
         executable: /usr/local/bin/zsh
-        removes: "{{ JAILS_BASE }}/{{ JAIL_NAME }}"
+        removes: "{{ JAIL_DIR }}"
     - blockinfile:
         dest: "{{ JAIL_CONF_PATH }}"
-        marker: "# {mark} ANSIBLE BLOCK FOR {{ JAILS_BASE }}/{{ JAIL_NAME }}"
+        marker: "# {mark} ANSIBLE BLOCK FOR {{ JAIL_DIR }}"
         state: absent

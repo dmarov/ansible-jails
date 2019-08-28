@@ -1,6 +1,6 @@
 ---
 
-- name: secure jail
+- name: base packets
   hosts: jails
   become: yes
   tasks:
