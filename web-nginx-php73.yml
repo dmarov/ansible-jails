@@ -1,0 +1,6 @@
+---
+
+- name: install base packets
+  hosts: web-nginx-php73
+  roles:
+    - web-nginx-php73

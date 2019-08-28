@@ -1,0 +1,42 @@
+---
+
+- name: install curl
+  package:
+    name: curl
+    state: present
+  become: yes
+- name: install git
+  package:
+    name: git
+    state: present
+  become: yes
+- name: install oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    executable: /bin/sh
+    creates: "~/.oh-my-zsh"
+- name: disable zsh prompts
+  lineinfile:
+    line: 'DISABLE_AUTO_UPDATE="true"'
+    path: "~/.zshrc"
+    state: present
+- name: install mc
+  package:
+    name: mc
+    state: present
+  become: yes
+- name: install vim
+  package:
+    name: vim
+    state: present
+  become: yes
+- name: install neovim
+  package:
+    name: neovim
+    state: present
+  become: yes
+- name: install vifm
+  package:
+    name: vifm
+    state: present
+  become: yes
