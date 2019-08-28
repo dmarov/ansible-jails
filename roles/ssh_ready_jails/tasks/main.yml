@@ -39,3 +39,8 @@
     name: vifm
     state: present
   become: yes
+- name: install atop
+  package:
+    name: atop
+    state: present
+  become: yes

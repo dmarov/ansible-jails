@@ -5,7 +5,7 @@
     name: zsh
     state: present
   become: yes
-- name: exsure zsh config exists
+- name: ensure zsh config exists
   copy:
     content: ""
     dest: "~/.zshrc"

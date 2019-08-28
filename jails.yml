@@ -4,4 +4,4 @@
   hosts: jails
   roles:
     - jails
-    - sshable-jails
+    - ssh_ready_jails
