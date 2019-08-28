@@ -1,8 +1,5 @@
 [jail_hosts]
 127.0.0.1
 
-[secure_jails]
-dell-01-j003
-
-[insecure_jails]
+[jails]
 dell-01-j003

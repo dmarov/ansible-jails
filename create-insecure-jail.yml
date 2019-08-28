@@ -14,7 +14,7 @@
         HOSTNAME: "{{ hostname.stdout }}"
     - name: Create and extract to jail dir
       shell: "mkdir -p {{ JAILS_BASE }}/{{ JAIL_NAME }} &&
-        curl file:///usr/dist/base-jail_20190827.txz | tar -C {{ JAILS_BASE }}/{{ JAIL_NAME }} -xf -"
+        curl {{ BASE_JAIL_TAR }} | tar -C {{ JAILS_BASE }}/{{ JAIL_NAME }} -xf -"
       args:
         warn: false
         creates: "{{ JAILS_BASE }}/{{ JAIL_NAME }}"

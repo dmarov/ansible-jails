@@ -1,7 +1,7 @@
 ---
 
 ansible_connection: local
-REPOSITORY_PATH: file:///usr/dist/base-jail_20190827.txz
+BASE_JAIL_TAR: file:///usr/dist/base-jail_20190827.txz
 JAILS_BASE: /usr/local/jails
 JAIL_CONF_PATH: /etc/jail.conf
 JAIL_ADMIN_SSH_KEY_FILE: ~/.ssh/jail_admin_rsa.pub
