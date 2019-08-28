@@ -1,0 +1,5 @@
+---
+
+- name: install apache24
+  package: apache24
+  state: present

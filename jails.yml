@@ -3,5 +3,5 @@
 - name: init user install base packets
   hosts: jails
   roles:
-    - jails
-    - ssh_ready_jails
+    - jail
+    - ssh_ready_jail
