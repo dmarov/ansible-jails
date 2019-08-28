@@ -15,11 +15,10 @@
   args:
     executable: /bin/sh
     creates: "~/.oh-my-zsh"
-- name: disable zsh prompts
-  lineinfile:
-    line: 'DISABLE_AUTO_UPDATE="true"'
-    path: "~/.zshrc"
-    state: present
+- name: configure zsh
+  template:
+    src: "templates/.zshrc.j2"
+    dest: "~/.zshrc"
 - name: install mc
   package:
     name: mc

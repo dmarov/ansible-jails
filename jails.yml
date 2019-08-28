@@ -1,6 +1,7 @@
 ---
 
-- name: install base packets
+- name: init user install base packets
   hosts: jails
   roles:
     - jails
+    - sshable-jails
