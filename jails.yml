@@ -1,10 +1,28 @@
 ---
 
-- name: base packets
+- name: install base packets
   hosts: jails
-  become: yes
   tasks:
     - name: install zsh
       package:
         name: zsh
         state: present
+      become: yes
+    - name: create zsh empty config
+      file:
+        path: "~/.zshrc"
+        state: touch
+    - name: set user shell to zsh and generate ssh key
+      user:
+        name: user
+        shell: /usr/local/bin/zsh
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        state: present
+        state: present
+      become: yes
+    - name: install curl
+      package:
+        name: curl
+        state: present
+      become: yes

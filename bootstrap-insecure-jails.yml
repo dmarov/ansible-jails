@@ -34,7 +34,7 @@
       authorized_key:
         user: user
         state: present
-        key: " {{ lookup('file', JAIL_ADMIN_SSH_PUBKEY_FILE) }}"
+        key: "{{ lookup('file', JAIL_ADMIN_SSH_PUBKEY_FILE) }}"
     - name: disable insecure ssh
       blockinfile:
         path: "/etc/ssh/sshd_config"
