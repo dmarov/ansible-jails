@@ -51,4 +51,6 @@
           PermitRootLogin yes
         state: present
     - name: Ensure insecure jail is started
-      shell: "jail -c {{ JAIL_NAME }}"
+      shell: "jail -c {{ JAIL_NAME }} || true"
+    - name: Set empty password for root
+      shell: jexec {{ JAIL_NAME }} chpass -p '$1$qz6rVQ3.$pTkIzaBwTsqt7qRy2og0F1' root
