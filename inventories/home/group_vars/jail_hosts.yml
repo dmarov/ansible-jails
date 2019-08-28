@@ -1,7 +1,7 @@
 ---
 
 ansible_connection: local
-BASE_JAIL_TAR_URL: file:///usr/dist/base-jail_20190827.txz
+BASE_TAR_URL: file:///usr/freebsd-dist/base.txz
 JAILS_DIR: /usr/local/jails
 JAIL_CONF_PATH: /etc/jail.conf
 JAIL_ADMIN_SSH_KEY_FILE: ~/.ssh/jail_admin_rsa.pub

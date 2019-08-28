@@ -14,7 +14,8 @@
       args:
         executable: /usr/local/bin/zsh
         removes: "{{ JAIL_DIR }}"
-    - blockinfile:
+    - name: ensure block in file is absent
+      blockinfile:
         dest: "{{ JAIL_CONF_PATH }}"
         marker: "# {mark} ANSIBLE BLOCK FOR {{ JAIL_DIR }}"
         state: absent
