@@ -2,10 +2,19 @@
 
 - name: secure jail
   hosts: jails
+  gather_facts: no
   vars:
     ansible_connection: ssh
     ansible_user: root
   tasks:
+    - name: check for python
+      raw: test -e /usr/local/bin/python3
+      changed_when: false
+      failed_when: false
+      register: check_python
+    - name: install python
+      raw: /bin/sh -c "export ASSUME_ALWAYS_YES='YES' && pkg install -y python3"
+      when: check_python.rc != 0
     - name: install sudo
       package:
         name: sudo
@@ -34,4 +43,4 @@
     - name: restart ssh
       service:
         name: sshd
-        state: reloaded
+        state: restarted

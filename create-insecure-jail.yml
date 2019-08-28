@@ -4,14 +4,13 @@
   hosts: jail_hosts
   become: yes
   become_method: sudo
+  pre_tasks:
+    - assert:
+        that: JAIL_NAME is match("^j\d{3}$")
   tasks:
-    - name: Check out hostname
-      shell: hostname
-      register: hostname
-      changed_when: false
     - set_fact:
         EPAIR_NUM: "{{ JAIL_NAME | regex_search('0*(\\d+)$', '\\1') | first }}"
-        HOSTNAME: "{{ hostname.stdout }}"
+        HOSTNAME: "{{ ansible_facts['nodename'] }}"
     - name: Create and extract to jail dir
       shell: "mkdir -p {{ JAILS_BASE }}/{{ JAIL_NAME }} &&
         curl {{ BASE_JAIL_TAR }} | tar -C {{ JAILS_BASE }}/{{ JAIL_NAME }} -xf -"
@@ -38,6 +37,3 @@
         state: present
     - name: Ensure insecure jail is started
       shell: "jail -c {{ JAIL_NAME }}"
-  pre_tasks:
-    - assert:
-        that: JAIL_NAME is match("^j\d{3}$")
