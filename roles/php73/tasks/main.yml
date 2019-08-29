@@ -22,3 +22,9 @@
     - php73-pear-Mail
     - php73-curl
     - php73-fileinfo
+- name: 
+  template:
+    src: "templates/php.ini.j2"
+    dest: /usr/local/etc/php.ini
+  become: yes
+
