@@ -1,6 +1,6 @@
 ---
 
-- name: install base packets
+- name: configure web server with apache24, php73
   hosts: web_apache24_php73
   roles:
     - php73
