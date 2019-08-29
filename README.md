@@ -3,23 +3,29 @@
 ### create and start jail j003
 
 ```
-ansible-playbook -i inventories/staging -K create-insecure-jail.yml --extra-vars="JAIL_NAME=j003"
+ansible-playbook -i inventories/staging -K jail_create_insecure.yml --extra-vars="JAIL_NAME=j003" --limit="{jails_host_hostname}"
 ```
 
-### bootstrap python and secure ssh connection for jail j003
+### bootstrap python and secure ssh connection for jail {jail_name}
 
 ```
-ansible-playbook -i inventories/staging bootstrap-insecure-jails.yml --limit="{jails_host_hostname}-j003"
+ansible-playbook -i inventories/staging jail_bootstrap_insecure.yml --limit="{jails_host_hostname}-{jail_name}"
 ```
 
-### stop and remove jail j003
+### stop and remove jail {jail_name}
 
 ```
-ansible-playbook -i inventories/staging -K remove-jail.yml --extra-vars="JAIL_NAME=j003"
+ansible-playbook -i inventories/staging -K jail_remove.yml --extra-vars="JAIL_NAME=j003" --limit="{jails_host_hostname}-{jail_name}"
 ```
 
-### install basic packages like mc, oh-my-zsh and vim in jail j003
+### install basic packages like mc, oh-my-zsh and vim in jail {jail_name}
 
 ```
-ansible-playbook -i inventories/staging jails.yml --limit="j003"
+ansible-playbook -i inventories/staging jails.yml --limit="{jails_host_hostname}-{jail_name}"
+```
+
+### install and configure webserver with apache24, php73 {jail_name}
+
+```
+ansible-playbook -i inventories/staging web-apache24-php73.yml --limit="{jails_host_hostname}-{jail_name}"
 ```
