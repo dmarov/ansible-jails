@@ -1,8 +1,11 @@
+---
+
 - name: install php and extensions
   package:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
-  with_items:
+  become: yes
+  loop:
     - php73
     - php73-extensions
     - php73-openssl

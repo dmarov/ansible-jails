@@ -1,5 +1,55 @@
 ---
 
 - name: install apache24
-  package: apache24
-  state: present
+  package:
+    name: apache24
+    state: present
+  become: yes
+- name: install mod_php73
+  package: 
+    name: mod_php73
+    state: present
+  become: yes
+- name: start apache
+  service:
+    name: apache24
+    state: started
+    enabled: yes
+  become: yes
+- name: create vhosts directory
+  file:
+    path: /usr/local/etc/apache24/vhosts
+    state: directory
+  become: yes
+- name: create sites directory
+  file:
+    path: /usr/local/www/sites
+    state: directory
+    owner: www
+    group: www
+  become: yes
+# - name: patch apache config
+#   blockinfile:
+#     path: "/usr/local/etc/apache24/httpd.conf"
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
+#     block: |
+#       <FilesMatch "\.php$">
+#           SetHandler application/x-httpd-php
+#       </FilesMatch>
+#       <FilesMatch "\.phps$">
+#           SetHandler application/x-httpd-php-source
+#       </FilesMatch>
+#     state: present
+# - name: patch apache config
+#   blockinfile:
+#     path: "/usr/local/etc/apache24/httpd.conf"
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
+#     block: |
+#       Include etc/apache24/vhosts/*.conf
+#       <Directory "/usr/local/www/sites">
+#           AllowOverride All
+#           Require all granted
+#           DirectoryIndex index.php
+#       </Directory><Paste>
+#     state: present
+
