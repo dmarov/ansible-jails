@@ -28,28 +28,41 @@
     owner: www
     group: www
   become: yes
-# - name: patch apache config
-#   blockinfile:
-#     path: "/usr/local/etc/apache24/httpd.conf"
-#     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
-#     block: |
-#       <FilesMatch "\.php$">
-#           SetHandler application/x-httpd-php
-#       </FilesMatch>
-#       <FilesMatch "\.phps$">
-#           SetHandler application/x-httpd-php-source
-#       </FilesMatch>
-#     state: present
-# - name: patch apache config
-#   blockinfile:
-#     path: "/usr/local/etc/apache24/httpd.conf"
-#     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
-#     block: |
-#       Include etc/apache24/vhosts/*.conf
-#       <Directory "/usr/local/www/sites">
-#           AllowOverride All
-#           Require all granted
-#           DirectoryIndex index.php
-#       </Directory><Paste>
-#     state: present
-
+- name: patch apache config
+  blockinfile:
+    path: "/usr/local/etc/apache24/httpd.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
+    block: |
+      <FilesMatch "\.php$">
+          SetHandler application/x-httpd-php
+      </FilesMatch>
+      <FilesMatch "\.phps$">
+          SetHandler application/x-httpd-php-source
+      </FilesMatch>
+    state: present
+  become: yes
+- name: patch apache config
+  blockinfile:
+    path: "/usr/local/etc/apache24/httpd.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VHOSTS"
+    block: |
+      IncludeOptional etc/apache24/vhosts/*.conf
+      <Directory "/usr/local/www/sites">
+          AllowOverride All
+          Require all granted
+          DirectoryIndex index.php
+      </Directory>
+    state: present
+  become: yes
+- name: listen 443
+  lineinfile:
+    line: Listen 443
+    path: /usr/local/etc/apache24/httpd.conf
+    state: present
+  become: yes
+- name: restart apache
+  service:
+    name: apache24
+    state: restarted
+    enabled: yes
+  become: yes
