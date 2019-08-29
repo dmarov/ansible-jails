@@ -1,0 +1,38 @@
+---
+
+- name: install nginx
+  package:
+    name: nginx
+    state: present
+  become: yes
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+  become: yes
+- name: create vhosts directory
+  file:
+    path: /usr/local/etc/nginx/vhosts
+    state: directory
+  become: yes
+- name: create sites directory
+  file:
+    path: /usr/local/www/sites
+    state: directory
+    owner: www
+    group: www
+  become: yes
+- name: patch nginx config
+  blockinfile:
+    path: "/usr/local/etc/apache24/httpd.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
+    block: |
+      <FilesMatch "\.php$">
+          SetHandler application/x-httpd-php
+      </FilesMatch>
+      <FilesMatch "\.phps$">
+          SetHandler application/x-httpd-php-source
+      </FilesMatch>
+    state: present
+  become: yes
