@@ -21,7 +21,7 @@ ansible-playbook -i inventories/staging jail_bootstrap_insecure.yml --limit="{ja
 ### stop and remove jail {jail_name}
 
 ```
-ansible-playbook -i inventories/staging -K jail_remove.yml --extra-vars="JAIL_NAME=j003" --limit="{jails_host_hostname}-{jail_name}"
+ansible-playbook -i inventories/staging -K jail_remove.yml --extra-vars="JAIL_NAME=j003;I_KNOW_WHAT_I_AM_DOING=true" --limit="{jails_host_hostname}-{jail_name}"
 ```
 
 ### install basic packages like mc, oh-my-zsh and vim in jail {jail_name}
