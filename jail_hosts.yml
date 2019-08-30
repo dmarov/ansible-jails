@@ -1,5 +1,32 @@
 ---
 
-- name: init user install base packets
+- name: configure network
   hosts: jail_hosts
-  roles:
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: create bridge0 interface
+      lineinfile:
+        line: cloned_interfaces="bridge0"
+        path: /etc/rc.conf
+    - name: create bridge0 interface
+      lineinfile:
+        line: ifconfig_bridge0="up"
+        path: /etc/rc.conf
+    - name: enable jail
+      service:
+        name: jail
+        enabled: yes
+    - name: stop jails
+      service:
+        name: jail
+        state: stopped
+    - name: restart netif
+      service:
+        name: netif
+        state: restarted
+    - name: start jails
+      service:
+        name: jail
+        state: started
+

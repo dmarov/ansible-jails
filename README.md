@@ -1,5 +1,11 @@
 # ansible playbooks to manage jail hosts and jails
 
+### configure jail hosts
+
+```
+ansible-playbook -i inventories/staging jail_hosts.yml --limit="{jails_host_hostname}"
+```
+
 ### create and start jail j003
 
 ```
@@ -27,5 +33,11 @@ ansible-playbook -i inventories/staging jails.yml --limit="{jails_host_hostname}
 ### install and configure webserver with apache24, php73 {jail_name}
 
 ```
-ansible-playbook -i inventories/staging web-apache24-php73.yml --limit="{jails_host_hostname}-{jail_name}"
+ansible-playbook -i inventories/staging web_apache24_php73.yml --limit="{jails_host_hostname}-{jail_name}"
+```
+
+### install and configure webserver with nginx, php73 {jail_name}
+
+```
+ansible-playbook -i inventories/staging web_nginx_php73.yml --limit="{jails_host_hostname}-{jail_name}"
 ```
