@@ -23,16 +23,25 @@
     owner: www
     group: www
   become: yes
-- name: patch nginx config
-  blockinfile:
-    path: "/usr/local/etc/apache24/httpd.conf"
-    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR PHP"
-    block: |
-      <FilesMatch "\.php$">
-          SetHandler application/x-httpd-php
-      </FilesMatch>
-      <FilesMatch "\.phps$">
-          SetHandler application/x-httpd-php-source
-      </FilesMatch>
-    state: present
+- name: copy php-fpm config
+  template:
+    dest: "/usr/local/etc/php-fpm.d/www.conf"
+    src: "templates/php-fpm.www.conf.j2"
+  become: yes
+- name: start php-fpm
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes
+  become: yes
+- name: copy nginx config
+  template:
+    src: "templates/nginx.conf.j2"
+    dest: "/usr/local/etc/nginx/nginx.conf"
+  become: yes
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes
   become: yes

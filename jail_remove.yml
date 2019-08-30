@@ -4,6 +4,11 @@
   hosts: jail_hosts
   become: yes
   become_method: sudo
+  pre_tasks:
+    - assert:
+        that:
+          - JAIL_NAME is match("^j\d{3}$")
+          - I_KNOW_WHAT_I_AM_DOING == true
   tasks:
     - set_fact:
         JAIL_DIR: "{{ JAILS_DIR }}/{{ JAIL_NAME }}"

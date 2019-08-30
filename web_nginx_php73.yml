@@ -1,7 +1,7 @@
 ---
 
 - name: install base packets
-  hosts: web-nginx-php73
+  hosts: web_nginx_php73
   roles:
     - php73
-    - nginx
+    - nginx-php
