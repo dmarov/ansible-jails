@@ -36,3 +36,20 @@
   args:
     creates: /var/db/postgres/data11
   become: yes
+- name: start postgres service
+  service:
+    name: postgresql
+    state: started
+  become: yes
+- name: enable listen all connections
+  blockinfile:
+    path: "/var/db/postgres/data11/postgresql.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR POSTGRESQL LISTEN"
+    block: |
+      listen_addresses = '*'
+  become: yes
+- name: restart postgres service
+  service:
+    name: postgresql
+    state: restarted
+  become: yes
