@@ -12,4 +12,7 @@
     exec.stop = "ifconfig epair{{ EPAIR_NUM }}b down";
     exec.stop += "/bin/sh /etc/rc.shutdown";
     exec.poststop = "ifconfig epair{{ EPAIR_NUM }}a destroy";
+    sysvmsg;
+    sysvsem;
+    sysvshm;
 }

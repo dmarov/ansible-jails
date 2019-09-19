@@ -2,8 +2,9 @@
 mdpc
 
 [jails]
-mdpc-j001.local
-mdpc-j002.local
-mdpc-j003.local
-mdpc-j004.local
+192.168.0.10
+192.168.0.11
+
+[postgresql11]
+192.168.0.11
 

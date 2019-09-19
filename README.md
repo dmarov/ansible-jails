@@ -41,3 +41,9 @@ ansible-playbook -i inventories/staging web_apache24_php73.yml --limit="{jails_h
 ```
 ansible-playbook -i inventories/staging web_nginx_php73.yml --limit="{jails_host_hostname}-{jail_name}"
 ```
+
+### install and configure postgres11 {jail_name}
+
+```
+ansible-playbook -i inventories/staging db_postgres11.yml --limit="{jails_host_hostname}-{jail_name}"
+```
