@@ -1,0 +1,17 @@
+---
+
+- name: install postgres
+  hosts: postgresql11
+  tasks:
+    - name: ensure dependencies present
+      package:
+        name: py36-psycopg2
+        state: present
+      become: yes
+    - name: create postgres super user
+      postgresql_user:
+        name: "{{ NAME }}"
+        password: "{{ PASSWORD }}"
+        state: present
+        role_attr_flags: SUPERUSER
+

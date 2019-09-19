@@ -47,3 +47,9 @@ ansible-playbook -i inventories/staging web_nginx_php73.yml --limit="{jails_host
 ```
 ansible-playbook -i inventories/staging db_postgres11.yml --limit="{jails_host_hostname}-{jail_name}"
 ```
+
+### create postgresql superuser {jail_name}
+
+```
+ansible-playbook -i inventories/staging db_pg-create-superuser.yml --extra-vars="NAME=admin PASSWORD=1234" --limit="{jails_host_hostname}-{jail_name}"
+```

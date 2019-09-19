@@ -48,6 +48,13 @@
     block: |
       listen_addresses = '*'
   become: yes
+- name: enable md5 authentication for all hosts
+  blockinfile:
+    path: "/var/db/postgres/data11/pg_hba.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR POSTGRESQL HBA"
+    block: |
+      host    all             all             0.0.0.0/0               md5
+  become: yes
 - name: restart postgres service
   service:
     name: postgresql
