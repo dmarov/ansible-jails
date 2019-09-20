@@ -1,0 +1,6 @@
+---
+
+- name: install adminer
+  hosts: adminer
+  roles:
+    - adminer

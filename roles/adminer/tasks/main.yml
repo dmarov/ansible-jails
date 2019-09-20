@@ -1,13 +1,26 @@
 ---
 
+- name: install php
+  package:
+    name: "{{ item }}"
+    state: present
+  become: yes
+  loop:
+    - php73
+    - php73-session
+- name: create php config
+  template:
+    src: "templates/php.ini.j2"
+    dest: /usr/local/etc/php.ini
+  become: yes
 - name: install apache24
   package:
     name: apache24
     state: present
   become: yes
-- name: install mod_php72
-  package: 
-    name: mod_php72
+- name: install mod_php73
+  package:
+    name: mod_php73
     state: present
   become: yes
 - name: start apache
@@ -28,6 +41,20 @@
     owner: www
     group: www
   become: yes
+- name: create adminer directory
+  file:
+    path: /usr/local/www/sites/adminer
+    state: directory
+    owner: www
+    group: www
+  become: yes
+- name: download adminer
+  get_url:
+    url: https://github.com/vrana/adminer/releases/download/v4.7.3/adminer-4.7.3.php
+    dest: /usr/local/www/sites/adminer/index.php
+    owner: www
+    validate_certs: False
+  become: yes
 - name: patch apache config
   blockinfile:
     path: "/usr/local/etc/apache24/httpd.conf"
@@ -46,19 +73,35 @@
     path: "/usr/local/etc/apache24/httpd.conf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR VHOSTS"
     block: |
-      IncludeOptional etc/apache24/vhosts/*.conf
       <Directory "/usr/local/www/sites">
           AllowOverride All
           Require all granted
           DirectoryIndex index.php
       </Directory>
+      IncludeOptional etc/apache24/vhosts/*.conf
     state: present
   become: yes
-- name: listen 443
-  lineinfile:
-    line: Listen 443
-    path: /usr/local/etc/apache24/httpd.conf
+- name: install php database drivers
+  package:
+    name: "{{ item }}"
     state: present
+  become: yes
+  loop:
+    - php73-mysqli
+    - php73-odbc
+    - php73-pgsql
+    - php73-pdo_sqlite
+- name: configure adminer virtual host
+  blockinfile:
+    path: "/usr/local/etc/apache24/vhosts/adminer.conf"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK FOR APACHE ADMINER VIRTUAL HOST"
+    block: |
+      <VirtualHost *:80>
+          ServerName adminer.local
+          DocumentRoot "/usr/local/www/sites/adminer"
+      </VirtualHost>
+    state: present
+    create: yes
   become: yes
 - name: restart apache
   service:
