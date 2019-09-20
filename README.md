@@ -53,3 +53,9 @@ ansible-playbook -i inventories/staging db_postgres11.yml --limit="{jails_host_h
 ```
 ansible-playbook -i inventories/staging db_pg-create-superuser.yml --extra-vars="NAME=admin PASSWORD=1234" --limit="{jails_host_hostname}-{jail_name}"
 ```
+
+### create postgresql user {jail_name}
+
+```
+ansible-playbook -i inventories/staging db_pg-init-db.yml --extra-vars="DBNAME=db_storages-app USERNAME=stores-app PASSWORD=1234" --limit="{jails_host_hostname}-{jail_name}"
+```

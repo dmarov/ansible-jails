@@ -1,0 +1,22 @@
+---
+
+- name: install postgres
+  hosts: postgresql11
+  tasks:
+    - name: ensure dependencies present
+      package:
+        name: py36-psycopg2
+        state: present
+      become: yes
+    - name: create database
+      postgresql_db:
+        name: "{{ DBNAME }}"
+        state: present
+    - name: create user
+      postgresql_user:
+        name: "{{ USERNAME }}"
+        password: "{{ PASSWORD }}"
+        state: present
+        priv: 'ALL'
+        db: db_storages-app
+
