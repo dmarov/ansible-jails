@@ -1,6 +1,6 @@
 ---
 
 - name: install postgres
-  hosts: postgresql11
+  hosts: postgresql95
   roles:
-    - pg11
+    - pg95

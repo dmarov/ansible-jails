@@ -1,7 +1,7 @@
 ---
 
 - name: install postgres
-  hosts: postgresql11
+  hosts: postgresql95
   tasks:
     - name: ensure dependencies present
       package:
@@ -12,6 +12,7 @@
       postgresql_db:
         name: "{{ DBNAME }}"
         state: present
+        login_user: pgsql
     - name: create user
       postgresql_user:
         name: "{{ USERNAME }}"
@@ -19,4 +20,4 @@
         state: present
         priv: 'ALL'
         db: db_storages-app
-
+        login_user: pgsql

@@ -1,7 +1,7 @@
 ---
 
 - name: install postgres
-  hosts: postgresql11
+  hosts: postgresql95
   tasks:
     - name: ensure dependencies present
       package:
@@ -14,4 +14,6 @@
         password: "{{ PASSWORD }}"
         state: present
         role_attr_flags: SUPERUSER
+        login_user: pgsql
+        login_db: postgres
 

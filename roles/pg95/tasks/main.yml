@@ -1,13 +1,13 @@
 ---
 
-- name: install postgres11-server
+- name: install postgres95-server
   package:
-    name: postgresql11-server
+    name: postgresql95-server
     state: present
   become: yes
-- name: install postgres11-client
+- name: install postgres95-client
   package:
-    name: postgresql11-client
+    name: postgresql95-client
     state: present
   become: yes
 - name: configure encoding
@@ -34,7 +34,7 @@
 - name: init postgres db
   shell: /usr/local/etc/rc.d/postgresql initdb
   args:
-    creates: /var/db/postgres/data11
+    creates: /usr/local/pgsql/data
   become: yes
 - name: start postgres service
   service:
@@ -43,14 +43,14 @@
   become: yes
 - name: enable listen all connections
   blockinfile:
-    path: "/var/db/postgres/data11/postgresql.conf"
+    path: "/usr/local/pgsql/data/postgresql.conf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR POSTGRESQL LISTEN"
     block: |
       listen_addresses = '*'
   become: yes
 - name: enable md5 authentication for all hosts
   blockinfile:
-    path: "/var/db/postgres/data11/pg_hba.conf"
+    path: "/usr/local/pgsql/data/pg_hba.conf"
     marker: "# {mark} ANSIBLE MANAGED BLOCK FOR POSTGRESQL HBA"
     block: |
       host    all             all             0.0.0.0/0               md5
